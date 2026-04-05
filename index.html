@@ -3,7 +3,7 @@
  <head>
     <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beauty Procedure Savings Planner</title>
+  <title>Beauty Procedure Savings Planner — Try the Demo</title>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
   <script>
 (function () {
@@ -147,7 +147,7 @@
     .mobile-topbar {
       display: none;
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 44px; left: 0; right: 0;
       height: 56px;
       background: white;
       border-bottom: 1px solid #e2e8f0;
@@ -167,7 +167,7 @@
       aside {
         position: fixed !important;
         left: -280px;
-        top: 0; bottom: 0;
+        top: 44px; bottom: 0;
         width: 260px !important;
         z-index: 1001;
         transition: left 0.25s ease;
@@ -182,7 +182,7 @@
       aside .sidebar-item { padding: 10px 16px !important; font-size: 13px !important; }
       aside .border-b { padding-bottom: 8px !important; }
       aside.open { left: 0 !important; }
-      main { padding: 68px 12px 32px !important; width: 100% !important; overflow-y: auto; min-height: 100vh; }
+      main { padding: 114px 12px 32px !important; width: 100% !important; overflow-y: auto; min-height: 100vh; }
 
       /* Stack all 2 and 3 col grids */
       .grid-cols-2, .grid-cols-3, .md\:grid-cols-3, .md\:grid-cols-2 { grid-template-columns: 1fr !important; }
@@ -414,11 +414,31 @@
   <script>
   // ============ PASSWORD CONFIG ============
   // Change this value to set the access code your buyers will use:
-  var PLANNER_ACCESS_CODE = ''; // Login disabled for testing — re-enable by setting a code
-  // When your Etsy listing is live, replace this URL:
+  var PLANNER_ACCESS_CODE = '';
   var ETSY_LISTING_URL = 'https://www.etsy.com/your-listing-url-here';
+  var DEMO_MODE = true; // Demo version — saving is session-only, export disabled
+
+  // Override localStorage to be session-only in demo (data clears on refresh)
+  (function() {
+    var store = {};
+    var ls = {
+      getItem: function(k) { return store.hasOwnProperty(k) ? store[k] : null; },
+      setItem: function(k, v) { store[k] = String(v); },
+      removeItem: function(k) { delete store[k]; },
+      clear: function() { store = {}; },
+      key: function(i) { return Object.keys(store)[i] || null; },
+      get length() { return Object.keys(store).length; }
+    };
+    try { Object.defineProperty(window, 'localStorage', { get: function(){ return ls; }, configurable: true }); } catch(e) {}
+  })();
   // ==========================================
   </script>
+
+  <!-- DEMO BANNER -->
+  <div id="demo-banner" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,#667eea,#764ba2);color:white;text-align:center;padding:10px 16px;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;box-shadow:0 2px 12px rgba(0,0,0,0.25);">
+    <span style="font-size:13px;font-weight:600;">&#9733; DEMO VERSION &mdash; features are fully interactive but data resets on refresh</span>
+    <a href="https://www.etsy.com/your-listing-url-here" target="_blank" rel="noopener" style="background:white;color:#667eea;font-size:12px;font-weight:800;padding:6px 18px;border-radius:20px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Get the Full Version &rarr;</a>
+  </div>
 
   <!-- Mobile overlay -->
   <div id="sidebar-overlay"></div>
@@ -432,12 +452,12 @@
   </div>
 
   <div id="main-app" class="flex min-h-screen" style="display:none;opacity:0;transition:opacity 0.2s ease;">
-   <aside class="w-64 bg-white shadow-lg flex-shrink-0 overflow-y-auto sticky top-0 h-screen">
+   <aside class="w-64 bg-white shadow-lg flex-shrink-0 overflow-y-auto sticky top-0 h-screen" style="margin-top:44px;height:calc(100vh - 44px);">
     <div class="p-4 border-b border-gray-200">
      <h1 class="font-heading text-xl font-bold text-primary">Beauty Procedure Savings Planner</h1>
 
      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;">
-      <button id="export-data-btn" style="padding:7px 4px;background:transparent;color:#667eea;border:1.5px solid #667eea;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;" title="Export your data to a file">&#8681; Export</button>
+      <button id="export-data-btn" style="padding:7px 4px;background:transparent;color:#94a3b8;border:1.5px solid #94a3b8;border-radius:6px;font-size:11px;font-weight:400;cursor:not-allowed;font-family:inherit;opacity:0.5;" title="Export disabled in demo" disabled>&#8681; Export</button>
       <label id="import-data-label" style="padding:7px 4px;background:transparent;color:#667eea;border:1.5px solid #667eea;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;display:block;" title="Import data from a file">&#8679; Import<input type="file" id="import-data-input" accept=".json" style="display:none;"></label>
      </div>
      <p style="font-size:10px;color:#64748b;margin-top:5px;line-height:1.5;"><strong>Export</strong> saves your data as a file. <strong>Import</strong> loads it back — use to transfer data between devices.</p>
