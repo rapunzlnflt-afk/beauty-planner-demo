@@ -416,9 +416,9 @@
   // Change this value to set the access code your buyers will use:
   var PLANNER_ACCESS_CODE = '';
   var ETSY_LISTING_URL = 'https://www.etsy.com/your-listing-url-here';
-  var DEMO_MODE = true; // Demo version — saving is session-only, export disabled
+  var DEMO_MODE = true;
 
-  // Override localStorage to be session-only in demo (data clears on refresh)
+  // Override localStorage to be session-only in demo
   (function() {
     var store = {};
     var ls = {
@@ -457,7 +457,7 @@
      <h1 class="font-heading text-xl font-bold text-primary">Beauty Procedure Savings Planner</h1>
 
      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;">
-      <button id="export-data-btn" style="padding:7px 4px;background:transparent;color:#94a3b8;border:1.5px solid #94a3b8;border-radius:6px;font-size:11px;font-weight:400;cursor:not-allowed;font-family:inherit;opacity:0.5;" title="Export disabled in demo" disabled>&#8681; Export</button>
+      <button id="export-data-btn" style="padding:7px 4px;background:transparent;color:#94a3b8;border:1.5px solid #94a3b8;border-radius:6px;font-size:11px;font-weight:400;cursor:not-allowed;font-family:inherit;opacity:0.5;" title="Disabled in demo" disabled>&#8681; Export</button>
       <label id="import-data-label" style="padding:7px 4px;background:transparent;color:#667eea;border:1.5px solid #667eea;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;display:block;" title="Import data from a file">&#8679; Import<input type="file" id="import-data-input" accept=".json" style="display:none;"></label>
      </div>
      <p style="font-size:10px;color:#64748b;margin-top:5px;line-height:1.5;"><strong>Export</strong> saves your data as a file. <strong>Import</strong> loads it back — use to transfer data between devices.</p>
@@ -1024,7 +1024,7 @@
          <p class="font-body text-sm text-secondary mt-1">Save <span id="active-per-box" class="font-semibold">$20.00</span> per box to reach <span id="active-goal" class="font-semibold">$5,000.00</span></p>
         </div>
         <div class="flex gap-2" style="pointer-events: auto; z-index: 10;">
-         <button id="print-challenge-btn" class="btn-primary px-3 py-2 rounded text-xs font-medium" style="pointer-events: auto;">Print Grid</button><button id="delete-challenge-btn" class="btn-secondary px-3 py-2 rounded text-xs font-medium" style="pointer-events: auto;">Delete Grid</button>
+         <button id="print-challenge-btn" class="btn-secondary px-3 py-2 rounded text-xs font-medium" style="opacity:0.45;cursor:not-allowed;pointer-events:none;" disabled title="Print disabled in demo">Print Grid</button><button id="delete-challenge-btn" class="btn-secondary px-3 py-2 rounded text-xs font-medium" style="pointer-events: auto;">Delete Grid</button>
         </div>
        </div>
        <div class="mb-4">
@@ -1102,7 +1102,7 @@
     </section>
     <section id="tab-consultation-questions" class="tab-content hidden">
      <div class="flex justify-between items-center mb-6">
-      <h2 class="font-heading text-2xl font-bold text-primary">Consultation Questions</h2><button id="export-consultation-btn" class="btn-primary px-4 py-2 rounded font-body text-sm font-medium">Export &amp; Print</button>
+      <h2 class="font-heading text-2xl font-bold text-primary">Consultation Questions</h2><button id="export-consultation-btn" class="btn-secondary px-4 py-2 rounded font-body text-sm font-medium" style="opacity:0.45;cursor:not-allowed;" disabled title="Print disabled in demo">Export &amp; Print</button>
      </div>
      <div class="card p-4 mb-4" style="background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-color-2) 100%); color: white;">
       <h3 class="font-heading text-lg font-bold mb-3">Before Your Consultation</h3>
@@ -1320,7 +1320,7 @@
      </div>
      <div class="card p-5 mb-6">
       <div class="flex justify-between items-center mb-4">
-       <h3 class="font-heading text-lg font-semibold text-primary">Expenses by Category</h3><button id="travel-print-btn" class="btn-primary px-4 py-2 rounded font-body text-sm font-medium">Print Budget</button>
+       <h3 class="font-heading text-lg font-semibold text-primary">Expenses by Category</h3><button id="travel-print-btn" class="btn-secondary px-4 py-2 rounded font-body text-sm font-medium" style="opacity:0.45;cursor:not-allowed;" disabled title="Print disabled in demo">Print Budget</button>
       </div>
       <div id="travel-expense-summary" class="space-y-2">
        <p class="font-body text-sm text-secondary italic">Add expenses to see summary.</p>
@@ -1546,7 +1546,7 @@
      </div>
      <div class="card p-5 mb-6">
       <div class="flex justify-between items-center mb-4">
-       <h3 class="font-heading text-lg font-semibold text-primary">Current Medications</h3><button id="med-print-btn" class="btn-primary px-4 py-2 rounded font-body text-sm font-medium">Export &amp; Print</button>
+       <h3 class="font-heading text-lg font-semibold text-primary">Current Medications</h3><button id="med-print-btn" class="btn-secondary px-4 py-2 rounded font-body text-sm font-medium" style="opacity:0.45;cursor:not-allowed;" disabled title="Print disabled in demo">Export &amp; Print</button>
       </div>
       <div class="overflow-x-auto">
        <table class="w-full min-w-max">
@@ -2402,7 +2402,7 @@
           <div class="p-6">
             <div class="flex items-start gap-4">
               <div class="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
-                <span style="font-size: 24px;">â„¹ï¸</span>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="8.5"/><line x1="12" y1="12" x2="12" y2="16"/></svg>
               </div>
               <div class="flex-1">
                 <p class="font-body text-sm text-secondary leading-relaxed">${escapeHtml(message)}</p>
